@@ -19,21 +19,44 @@ public class AIControl : MonoBehaviour
     {
         agent = this.GetComponent<NavMeshAgent>();
         goalLocations = GameObject.FindGameObjectsWithTag("goal");
-        int i = Random.Range(0, goalLocations.Length);
-        agent.SetDestination(goalLocations[i].transform.position);
+
         anim = this.GetComponent<Animator>();
-        anim.SetFloat("wOffset", Random.Range(0.0f, 1.0f));
+
+        // Tenta definir o wOffset apenas se o Animator tiver o parâmetro
+        if (anim != null)
+        {
+            anim.SetFloat("wOffset", Random.Range(0.0f, 1.0f));
+        }
+
         ResetAgent();
+
+        // Define um destino inicial se houver goals disponíveis
+        if (goalLocations.Length > 0 && agent != null && agent.isOnNavMesh)
+        {
+            int i = Random.Range(0, goalLocations.Length);
+            agent.SetDestination(goalLocations[i].transform.position);
+        }
     }
 
     void ResetAgent()
     {
         speedMult = Random.Range(0.5f, 2f);
-        anim.SetFloat("speedMult", speedMult);
-        agent.speed *= speedMult;
-        anim.SetTrigger("isWalking");
-        agent.angularSpeed = 120;
-        agent.ResetPath();
+
+        if (anim != null)
+        {
+            anim.SetFloat("speedMult", speedMult);
+            anim.SetTrigger("isWalking");
+        }
+
+        if (agent != null)
+        {
+            agent.speed *= speedMult;
+            agent.angularSpeed = 120;
+            if (agent.isOnNavMesh)
+            {
+                agent.ResetPath();
+            }
+        }
     }
 
     public void DetectNewObstacle(Vector3 position)
@@ -44,14 +67,18 @@ public class AIControl : MonoBehaviour
             Vector3 newgoal = this.transform.position + fleeDirection * fleeRadius;
 
             NavMeshPath path = new NavMeshPath();
-            agent.CalculatePath(newgoal, path);
 
-            if (path.status != NavMeshPathStatus.PathInvalid)
+            if (agent != null && agent.isOnNavMesh)
             {
-                agent.SetDestination(path.corners[path.corners.Length - 1]);
-                anim.SetTrigger("isRunning");
-                agent.speed = 10;
-                agent.angularSpeed = 500;
+                agent.CalculatePath(newgoal, path);
+
+                if (path.status != NavMeshPathStatus.PathInvalid && path.corners.Length > 0)
+                {
+                    agent.SetDestination(path.corners[path.corners.Length - 1]);
+                    if (anim != null) anim.SetTrigger("isRunning");
+                    agent.speed = 10;
+                    agent.angularSpeed = 500;
+                }
             }
         }
     }
@@ -59,11 +86,18 @@ public class AIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (agent.remainingDistance < 1)
+        // Proteção: só verifica remainingDistance se o agente estiver ativo e no NavMesh
+        if (agent != null && agent.isOnNavMesh && !agent.pathPending)
         {
-            ResetAgent();
-            int i = Random.Range(0, goalLocations.Length);
-            agent.SetDestination(goalLocations[i].transform.position);
+            if (agent.remainingDistance < 1f)
+            {
+                ResetAgent();
+                if (goalLocations.Length > 0)
+                {
+                    int i = Random.Range(0, goalLocations.Length);
+                    agent.SetDestination(goalLocations[i].transform.position);
+                }
+            }
         }
     }
 }
