@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem; // Necessário se estiveres a usar o novo Input System das imagens
 
 public class DropCylinder : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class DropCylinder : MonoBehaviour
                 Instantiate(obstacle, hitInfo.point, obstacle.transform.rotation);
                 foreach (GameObject a in agents)
                 {
-
+                    a.GetComponent<AIControl>().DetectNewObstacle(hitInfo.point);
                 }
             }
         }
