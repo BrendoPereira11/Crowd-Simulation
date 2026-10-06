@@ -15,6 +15,10 @@ public class FlockManager : MonoBehaviour
     public float minSpeed;
     [Range(0.0f, 5.0f)]
     public float maxSpeed;
+    [Range(1.0f, 10.0f)]
+    public float neighbourDistance;
+    [Range(1.0f, 5.0f)]
+    public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
