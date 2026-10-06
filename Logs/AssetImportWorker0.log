@@ -13374,3 +13374,31 @@ Received Import Request.
 Start importing Assets/Scripts/Flock.cs using Guid(7e93cfa94236df541932e130195b74b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ed4c98865ca876c0c6767b6afee668fc') in 0.002353 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
 
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 0.95 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 13 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6100 unused Assets / (5.6 MB). Loaded Objects now: 6888.
+Memory consumption went from 159.6 MB to 154.0 MB.
+Total: 368.647600 ms (FindLiveObjects: 1.607100 ms CreateObjectMapping: 0.359100 ms MarkObjects: 360.356400 ms  DeleteObjects: 6.321500 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 1.19 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 13 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6100 unused Assets / (5.7 MB). Loaded Objects now: 6888.
+Memory consumption went from 159.6 MB to 153.9 MB.
+Total: 13.614400 ms (FindLiveObjects: 1.225900 ms CreateObjectMapping: 1.295700 ms MarkObjects: 6.656200 ms  DeleteObjects: 4.434400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 16273.824318 seconds.
+  path: Assets/Scripts/Flock.cs
+  artifactKey: Guid(7e93cfa94236df541932e130195b74b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Flock.cs using Guid(7e93cfa94236df541932e130195b74b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '736712db3eeef8fab663496425993aa2') in 0.0634257 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
